@@ -1,8 +1,10 @@
 import Banner from "../component/Banner";
+import FeatureSection from "../component/Features";
 const Homepage = () => {
   return (
-    <div>
+    <div className="bg-backGround">
       <Banner />
+      <FeatureSection />
     </div>
   );
 };

@@ -1,8 +1,13 @@
 import { Link, NavLink } from "react-router-dom";
 import { MdLogout } from "react-icons/md";
+import { useState } from "react";
 
 const Navbar = () => {
-  const currentUser = null;
+  const [currentUser, setCurrentUser] = useState(true);
+  const handleLogout = () => {
+    // logout functionality
+    setCurrentUser(false);
+  };
   return (
     <div className="navbar shadow-sm">
       <div className="navbar-start">
@@ -68,7 +73,7 @@ const Navbar = () => {
               </div>
               <ul
                 tabIndex={0}
-                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10  mt-3 w-52 p-2 shadow text-base"
+                className="menu menu-sm dropdown-content bg-white  rounded-box z-20  mt-3 w-52 p-2 shadow text-base"
               >
                 <li>
                   <p className="bg-gray-300">Hasinur Rahman</p>
@@ -79,14 +84,24 @@ const Navbar = () => {
                 <li>
                   <Link>My attemted assignment</Link>
                 </li>
+                <li className="sm:hidden">
+                  <button
+                    className="flex items-center text-red-500"
+                    onClick={handleLogout}
+                  >
+                    <MdLogout />
+                    Logout
+                  </button>
+                </li>
               </ul>
             </div>
-            <Link to="/login">
-              <button className="px-4 py-2 text-white bg-red-600 hover:bg-red-700 rounded-lg shadow-md transition duration-300 text-lg flex items-center justify-center gap-2">
-                <MdLogout className="text-xl" />
-                Logout
-              </button>
-            </Link>
+            <button
+              className="px-4 py-2 text-white bg-red-600 hover:bg-red-700 rounded-lg shadow-md transition duration-300 text-lg items-center justify-center gap-2 hidden sm:flex"
+              onClick={handleLogout}
+            >
+              <MdLogout className="text-xl" />
+              Logout
+            </button>
           </div>
         ) : (
           <Link to="/login">

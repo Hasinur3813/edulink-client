@@ -8,7 +8,8 @@ const Banner = () => {
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center">
           <h1 className="text-3xl md:text-5xl font-extrabold leading-tight tracking-wide">
-            Welcome to EduLink, Your Personalized Online Study Hub
+            Welcome to <span className="text-primaryColor">EduLink</span>, Your
+            Personalized Online Study Hub
           </h1>
           <p className="mt-6 text-lg md:text-xl max-w-3xl mx-auto">
             Join thousands of students and experience a smarter, more efficient
