@@ -3,3 +3,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.navbar .active {
+  background: #4a90e2 !important;
+  color: #fff !important;
+}

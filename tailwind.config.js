@@ -15,6 +15,9 @@ export default {
       fontFamily: {
         lato: ["Lato", "serif"],
       },
+      backgroundImage: {
+        banner: "url('./src/assets/banner.jpg')",
+      },
     },
   },
   plugins: [daisyui],
