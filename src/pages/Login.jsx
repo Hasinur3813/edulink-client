@@ -1,22 +1,59 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { useAuth } from "../context/AuthProvider";
+import Swal from "sweetalert2";
 
 const Login = () => {
+  const { login, loading, setLoading, signInWithGoogle } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    console.log("Logging in with", { email, password });
-    // Add login logic here
+    try {
+      setError("");
+      await login(email, password);
+      Swal.fire({
+        title: "Welcome back",
+        text: " Successfully logged in",
+        icon: "success",
+      });
+      navigate("/");
+    } catch (error) {
+      setError(error.code);
+      Swal.fire({
+        title: "Error",
+        text: `${error.code}`,
+        icon: "error",
+      });
+      setLoading(false);
+    }
   };
 
-  const handleGoogleLogin = () => {
-    console.log("Logging in with Google");
-    // Add Google authentication logic here
+  const handleGoogleLogin = async () => {
+    try {
+      setError("");
+      await signInWithGoogle();
+      navigate("/");
+      Swal.fire({
+        title: "Welcome back",
+        text: " Successfully logged in",
+        icon: "success",
+      });
+    } catch (error) {
+      setLoading(false);
+      Swal.fire({
+        title: "Error",
+        text: `${error.code}`,
+        icon: "error",
+      });
+      setError(error.code);
+    }
   };
 
   const togglePasswordVisibility = () => {
@@ -78,13 +115,18 @@ const Login = () => {
               )}
             </button>
           </div>
+          {/* Error Message */}
+          {error && (
+            <p className="text-red-500 text-sm my-4 text-center">{error}</p>
+          )}
 
           {/* Login Button */}
           <button
             type="submit"
+            disabled={loading}
             className="btn text-lg bg-primaryColor hover:bg-primaryAccent text-white w-full"
           >
-            Login
+            {loading ? "Logging in..." : "Log In"}
           </button>
         </form>
 

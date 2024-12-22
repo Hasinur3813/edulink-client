@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
+import { useAuth } from "../context/AuthProvider";
+import Swal from "sweetalert2";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -11,9 +13,12 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   });
+  const { signup, loading, setLoading, updateUser, signInWithGoogle } =
+    useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -31,7 +36,7 @@ const Register = () => {
     return null;
   };
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     const passwordError = validatePassword(formData.password);
 
@@ -44,14 +49,47 @@ const Register = () => {
       setError("Passwords do not match.");
       return;
     }
-
     setError("");
-    console.log("Registered with", formData);
-    // Add registration logic here
+    try {
+      const result = await signup(formData.email, formData.password);
+      await updateUser(formData.name, formData.photoURL, formData.email);
+      setLoading(false);
+      navigate("/");
+      Swal.fire({
+        title: "Good job!",
+        text: "Registration Successful",
+        icon: "success",
+      });
+    } catch (error) {
+      setError(error.code);
+      setLoading(false);
+      Swal.fire({
+        title: "Error",
+        text: `${error.code}`,
+        icon: "error",
+      });
+    }
   };
 
-  const handleGoogleLogin = () => {
-    // handle google login
+  const handleGoogleLogin = async () => {
+    try {
+      setError("");
+      await signInWithGoogle();
+      navigate("/");
+      Swal.fire({
+        title: "Good job!",
+        text: "Registration Successful",
+        icon: "success",
+      });
+    } catch (error) {
+      setLoading(false);
+      Swal.fire({
+        title: "Error",
+        text: `${error.code}`,
+        icon: "error",
+      });
+      setError(error.code);
+    }
   };
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -191,7 +229,7 @@ const Register = () => {
             type="submit"
             className="btn text-lg bg-primaryColor hover:bg-primaryAccent text-white w-full"
           >
-            Register
+            {loading ? "Registering..." : "Register"}
           </button>
         </form>
 

@@ -2,9 +2,10 @@ import { Link, NavLink } from "react-router-dom";
 import { MdLogout } from "react-icons/md";
 import { useEffect, useState } from "react";
 import Theme from "./Theme";
+import { useAuth } from "../context/AuthProvider";
 
 const Navbar = () => {
-  const [currentUser, setCurrentUser] = useState(true);
+  const { currentUser, setCurrentUser, logout } = useAuth();
   const [theme, setTheme] = useState("light");
 
   useEffect(() => {
@@ -24,9 +25,8 @@ const Navbar = () => {
     localStorage.setItem("eduLinkTheme", newTheme);
     setTheme(newTheme);
   };
-  const handleLogout = () => {
-    // logout functionality
-    setCurrentUser(false);
+  const handleLogout = async () => {
+    await logout();
   };
   return (
     <div className="navbar shadow-sm">
@@ -92,10 +92,7 @@ const Navbar = () => {
                 className="btn btn-ghost btn-circle avatar"
               >
                 <div className="w-10 rounded-full outline-2 outline-offset-1 outline outline-primaryColor">
-                  <img
-                    alt="Tailwind CSS Navbar component"
-                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                  />
+                  <img alt="profile" src={currentUser?.photoURL} />
                 </div>
               </div>
               <ul
@@ -103,7 +100,7 @@ const Navbar = () => {
                 className="menu menu-sm dropdown-content bg-white  rounded-box z-20  mt-3 w-52 p-2 shadow text-base"
               >
                 <li>
-                  <p className="bg-gray-300">Hasinur Rahman</p>
+                  <p className="bg-gray-300">{currentUser?.displayName}</p>
                 </li>
                 <li>
                   <Link>Create Assignment</Link>
