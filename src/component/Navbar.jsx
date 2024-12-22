@@ -1,9 +1,29 @@
 import { Link, NavLink } from "react-router-dom";
 import { MdLogout } from "react-icons/md";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Theme from "./Theme";
 
 const Navbar = () => {
   const [currentUser, setCurrentUser] = useState(true);
+  const [theme, setTheme] = useState("light");
+
+  useEffect(() => {
+    const storedTheme = localStorage.getItem("eduLinkTheme");
+
+    if (storedTheme) {
+      setTheme(storedTheme);
+      document.documentElement.classList = storedTheme;
+    } else {
+      setTheme("light");
+    }
+  }, []);
+
+  const handleThemeChange = () => {
+    const newTheme = theme === "light" ? "dark" : "light";
+    document.documentElement.classList = newTheme;
+    localStorage.setItem("eduLinkTheme", newTheme);
+    setTheme(newTheme);
+  };
   const handleLogout = () => {
     // logout functionality
     setCurrentUser(false);
@@ -15,7 +35,7 @@ const Navbar = () => {
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
+              className="h-5 w-5 dark:text-white"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -30,16 +50,20 @@ const Navbar = () => {
           </div>
           <ul
             tabIndex={0}
-            className="navMenu menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+            className="navMenu menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-52 p-2 shadow"
           >
             <li>
               <NavLink>Assignments</NavLink>
+              <NavLink>Pending Assignment</NavLink>
             </li>
           </ul>
         </div>
-        <a className=" text-xl lg:text-2xl font-bold">
+        <Link
+          to="/"
+          className=" text-xl lg:text-3xl font-extrabold dark:text-white"
+        >
           <span className="text-primaryColor">Edu</span>Link
-        </a>
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className=" menu menu-horizontal px-1 space-x-1">
@@ -55,6 +79,9 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end">
+        {/* control theme */}
+        <Theme handleThemeChange={handleThemeChange} theme={theme} />
+
         {currentUser ? (
           <div className="flex items-center gap-2">
             {" "}
