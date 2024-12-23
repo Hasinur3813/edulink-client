@@ -8,6 +8,8 @@ import ErrorPage from "./pages/ErrorPage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AuthProvider from "./context/AuthProvider";
+import CreateAssignment from "./pages/CreateAssignment";
+import Assignments from "./pages/Assignments";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +28,14 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+      {
+        path: "/create-assignment",
+        element: <CreateAssignment />,
+      },
+      {
+        path: "/assignments",
+        element: <Assignments />,
       },
     ],
   },

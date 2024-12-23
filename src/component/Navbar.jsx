@@ -5,7 +5,7 @@ import Theme from "./Theme";
 import { useAuth } from "../context/AuthProvider";
 
 const Navbar = () => {
-  const { currentUser, setCurrentUser, logout } = useAuth();
+  const { currentUser, logout } = useAuth();
   const [theme, setTheme] = useState("light");
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const Navbar = () => {
     await logout();
   };
   return (
-    <div className="navbar shadow-sm">
+    <div className="navbar shadow-sm z-10">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -103,10 +103,10 @@ const Navbar = () => {
                   <p className="bg-gray-300">{currentUser?.displayName}</p>
                 </li>
                 <li>
-                  <Link>Create Assignment</Link>
+                  <Link to="/create-assignment">Create Assignment</Link>
                 </li>
                 <li>
-                  <Link>My attemted assignment</Link>
+                  <Link to="attempted-assignment">My attemted assignment</Link>
                 </li>
                 <li className="sm:hidden">
                   <button

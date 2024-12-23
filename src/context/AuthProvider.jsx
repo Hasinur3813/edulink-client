@@ -11,6 +11,8 @@ import {
   updateProfile,
   signOut,
 } from "firebase/auth";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const AuthContext = createContext();
 
@@ -25,11 +27,51 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
-      setLoading(false);
+      if (user?.email) {
+        axios
+          .post(
+            "http://localhost:3000/users/generate-token",
+            {
+              email: user.email,
+            },
+            { withCredentials: true }
+          )
+          .then(() => {
+            setLoading(false);
+          })
+          .catch(() => {
+            Swal.fire({
+              title: "Error",
+              text: "Internal server error",
+              icon: "error",
+            });
+            setLoading(false);
+          });
+      } else {
+        axios
+          .post(
+            "http://localhost:3000/users/logout",
+            {},
+            {
+              withCredentials: true,
+            }
+          )
+          .then(() => {
+            setLoading(false);
+          })
+          .catch(() => {
+            Swal.fire({
+              title: "Error",
+              text: "Internal server error",
+              icon: "error",
+            });
+            setLoading(false);
+          });
+      }
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [currentUser]);
 
   // sign in with google
 

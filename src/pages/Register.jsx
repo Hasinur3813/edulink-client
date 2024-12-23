@@ -4,8 +4,10 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { useAuth } from "../context/AuthProvider";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../instance/AxiosSecure";
 
 const Register = () => {
+  const axiosInstance = useAxiosSecure();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -51,17 +53,36 @@ const Register = () => {
     }
     setError("");
     try {
-      const result = await signup(formData.email, formData.password);
-      await updateUser(formData.name, formData.photoURL, formData.email);
-      setLoading(false);
-      navigate("/");
-      Swal.fire({
-        title: "Good job!",
-        text: "Registration Successful",
-        icon: "success",
+      const res = await axiosInstance.post("/users/signup", {
+        name: formData.name,
+        email: formData.email,
+        photoURL: formData.photoURL,
+        password: formData.password,
       });
+      if (res.data.success) {
+        try {
+          await signup(formData.email, formData.password);
+          await updateUser(formData.name, formData.photoURL, formData.email);
+          setLoading(false);
+          navigate("/");
+          Swal.fire({
+            title: "Good job!",
+            text: "Registration Successful",
+            icon: "success",
+          });
+        } catch (error) {
+          setError(error.code);
+          setLoading(false);
+          Swal.fire({
+            title: "Error",
+            text: `${error.code}`,
+            icon: "error",
+          });
+        }
+      }
     } catch (error) {
       setError(error.code);
+      console.log(error);
       setLoading(false);
       Swal.fire({
         title: "Error",
