@@ -72,13 +72,13 @@ const AssignmentsPage = () => {
   const handleUpdate = (assignment) => {};
 
   return (
-    <div className="min-h-screen  p-3">
+    <div className="min-h-screen py-10 p-3">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-primaryColor">
             Assignments Overview
           </h1>
-          <p className="mt-4 text-lg">
+          <p className="mt-4 text-lg dark:text-white">
             View and manage all assignments. You can update, delete, or view
             detailed information on each assignment.
           </p>

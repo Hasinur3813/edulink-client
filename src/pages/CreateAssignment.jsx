@@ -74,6 +74,7 @@ const CreateAssignment = () => {
               name="thumbnail"
               placeholder="Enter Thumbnail URL"
               className="w-full px-4 py-2 border border-gray-300 dark:border-primaryColor rounded-md focus:outline-none focus:ring-2 focus:ring-primaryColor dark:bg-[#2E2E3A] dark:text-white"
+              required
             />
           </div>
           {/* Title */}

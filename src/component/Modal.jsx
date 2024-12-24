@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useAuth } from "../context/AuthProvider";
 
 const Modal = ({ setIsModalOpen, handleSubmit, assignment }) => {
@@ -9,15 +9,20 @@ const Modal = ({ setIsModalOpen, handleSubmit, assignment }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmitAssignment = () => {
+  const handleSubmitAssignment = (e) => {
+    e.preventDefault();
     const data = {
       ...formData,
+      title: assignment.title,
+      marks: null,
+      userName: currentUser.displayName,
       userEmail: currentUser.email,
       assignmentId: assignment._id,
       status: "Pending",
       date: new Date().toISOString(),
     };
     handleSubmit(data);
+    setIsModalOpen(false);
   };
 
   return (
@@ -26,7 +31,7 @@ const Modal = ({ setIsModalOpen, handleSubmit, assignment }) => {
         <h2 className="text-2xl font-bold text-primaryColor mb-4">
           Submit Assignment
         </h2>
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmitAssignment}>
           <div>
             <label className="block text-gray-700 mb-2">Google Docs Link</label>
             <input
@@ -48,6 +53,7 @@ const Modal = ({ setIsModalOpen, handleSubmit, assignment }) => {
               placeholder="Add a quick note about your assignment"
               className="textarea textarea-bordered w-full"
               rows="3"
+              required
             ></textarea>
           </div>
           <div className="flex justify-end gap-3">
@@ -58,11 +64,7 @@ const Modal = ({ setIsModalOpen, handleSubmit, assignment }) => {
             >
               Cancel
             </button>
-            <button
-              type="button"
-              onClick={handleSubmitAssignment}
-              className="btn bg-primaryColor text-white"
-            >
+            <button type="submit" className="btn bg-primaryColor text-white">
               Submit
             </button>
           </div>

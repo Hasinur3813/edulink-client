@@ -11,6 +11,7 @@ import AuthProvider from "./context/AuthProvider";
 import CreateAssignment from "./pages/CreateAssignment";
 import Assignments from "./pages/Assignments";
 import AssignmentDetails from "./pages/AssignmentDetails";
+import PendignAssignment from "./pages/PendignAssignment";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: `/view-assignment/:id`,
         element: <AssignmentDetails />,
+      },
+      {
+        path: `/pending-assignments`,
+        element: <PendignAssignment />,
       },
     ],
   },

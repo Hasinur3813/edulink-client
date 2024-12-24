@@ -17,22 +17,22 @@ const AssignmentCard = ({ onUpdate, onDelete, assignment }) => {
 
   return (
     <div
-      className="card card-compact bg-base-100 shadow-xl border border-gray-200"
+      className="card card-compact bg-base-100 dark:bg-gray-900 shadow-xl border border-gray-200 dark:border-primaryColor"
       key={assignment._id}
     >
       <figure>
         <img
           src={assignment.thumbnail}
           alt={assignment.title}
-          className="h-40 w-full object-cover rounded-t-lg"
+          className="h-40 w-full text-white object-cover rounded-t-lg"
         />
       </figure>
 
       <div className="card-body p-4">
-        <h2 className="card-title text-lg font-semibold text-gray-800 whitespace-nowrap overflow-hidden text-ellipsis max-w-full">
+        <h2 className="card-title text-lg font-semibold text-gray-800 whitespace-nowrap overflow-hidden text-ellipsis max-w-full dark:text-white">
           {assignment.title}
         </h2>
-        <p className="text-gray-600 mb-3  whitespace-nowrap overflow-hidden text-ellipsis max-w-full">
+        <p className="text-gray-600 mb-3  whitespace-nowrap overflow-hidden text-ellipsis max-w-full dark:text-gray-400">
           {assignment.description}
         </p>
         <div className="">

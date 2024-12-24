@@ -3,6 +3,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import useAxiosSecure from "../instance/AxiosSecure";
 import Modal from "../component/Modal";
+import Swal from "sweetalert2";
 
 const AssignmentDetails = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -24,10 +25,18 @@ const AssignmentDetails = () => {
 
   const handleSubmit = async (data) => {
     try {
-      const res = await axios.post("/assignment/submit-assignment", data);
-      console.log(res.data);
-    } catch (error) {
-      console.log(error);
+      await axios.post("/assignment/submit-assignment", data);
+      Swal.fire({
+        title: "Success",
+        text: "Submitted successfully",
+        icon: "success",
+      });
+    } catch {
+      Swal.fire({
+        title: "Error",
+        text: "An error ocured. Please try again.",
+        icon: "error",
+      });
     }
   };
 
@@ -59,7 +68,7 @@ const AssignmentDetails = () => {
         <h2 className="text-xl sm:text-3xl font-extrabold text-primaryColor mb-4">
           Assignment Details
         </h2>
-        <p className="text-gray-700 text-base sm:text-lg">
+        <p className="text-gray-700 text-base sm:text-lg dark:text-gray-400">
           Explore all the details about your selected assignment, including its
           requirements, difficulty level, and submission deadline. Complete the
           assignment to test your skills and knowledge!
@@ -67,7 +76,7 @@ const AssignmentDetails = () => {
       </header>
 
       {/* Assignment Card */}
-      <div className="bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200">
+      <div className="bg-white dark:bg-gray-900 shadow-lg rounded-lg overflow-hidden border border-gray-200">
         {/* Assignment Image */}
         <div className="relative">
           <img
@@ -86,7 +95,7 @@ const AssignmentDetails = () => {
           <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-primaryColor mb-4">
             {assignment.title}
           </h1>
-          <p className="text-lg text-gray-600 leading-relaxed mb-6">
+          <p className="text-lg text-gray-600 leading-relaxed mb-6 dark:text-gray-400">
             {assignment.description}
           </p>
 
