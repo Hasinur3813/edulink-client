@@ -4,7 +4,7 @@ import Footer from "./component/Footer";
 
 const Root = () => {
   return (
-    <div className="font-lato bg-backGround dark:bg-darkBg flex flex-col min-h-screen">
+    <div className="font-lato bg-primaryColor/10 dark:bg-darkBg flex flex-col min-h-screen">
       {/* Navbar */}
       <Navbar />
 

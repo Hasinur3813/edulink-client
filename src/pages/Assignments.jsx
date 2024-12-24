@@ -12,7 +12,6 @@ const AssignmentsPage = () => {
 
   const axios = useAxiosSecure();
 
-  // Fetch all assignments from the server (mocked here)
   useEffect(() => {
     const fetchAssignments = async () => {
       try {
@@ -59,7 +58,7 @@ const AssignmentsPage = () => {
             );
             setAssignments(remainingAssignment);
           }
-        } catch (error) {
+        } catch {
           Swal.fire({
             title: "Error",
             text: "Seems the file has already been deleted!",
@@ -73,13 +72,13 @@ const AssignmentsPage = () => {
   const handleUpdate = (assignment) => {};
 
   return (
-    <div className="min-h-screen bg-[#F5F5F5] p-3">
+    <div className="min-h-screen  p-3">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-[#4A90E2]">
+          <h1 className="text-4xl font-bold text-primaryColor">
             Assignments Overview
           </h1>
-          <p className="mt-4 text-lg text-[#1E1E2C]">
+          <p className="mt-4 text-lg">
             View and manage all assignments. You can update, delete, or view
             detailed information on each assignment.
           </p>

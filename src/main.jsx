@@ -10,6 +10,7 @@ import Register from "./pages/Register";
 import AuthProvider from "./context/AuthProvider";
 import CreateAssignment from "./pages/CreateAssignment";
 import Assignments from "./pages/Assignments";
+import AssignmentDetails from "./pages/AssignmentDetails";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "/assignments",
         element: <Assignments />,
+      },
+      {
+        path: `/view-assignment/:id`,
+        element: <AssignmentDetails />,
       },
     ],
   },
