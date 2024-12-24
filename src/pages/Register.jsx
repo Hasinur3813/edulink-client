@@ -15,7 +15,7 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   });
-  const { signup, loading, setLoading, updateUser, signInWithGoogle } =
+  const { signup, loading, setLoading, updateUser, signInWithGoogle, logout } =
     useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -81,12 +81,11 @@ const Register = () => {
         }
       }
     } catch (error) {
-      setError(error.code);
-      console.log(error);
+      setError(error?.response?.data?.message);
       setLoading(false);
       Swal.fire({
         title: "Error",
-        text: `${error.code}`,
+        text: `${error?.response?.data?.message}`,
         icon: "error",
       });
     }
@@ -95,23 +94,25 @@ const Register = () => {
   const handleGoogleLogin = async () => {
     try {
       setError("");
-      await signInWithGoogle();
-      navigate("/");
-      Swal.fire({
-        title: "Good job!",
-        text: "Registration Successful",
-        icon: "success",
-      });
+      const result = await signInWithGoogle();
+      console.log(result.user.email);
+      if (result?.user?.email) {
+        await axiosInstance.post("/users/signup", {
+          name: result.user.displayName,
+          email: result.user.email,
+          photoURL: result.user.photoURL,
+          platform: "Google Login",
+          password: "googleLogin",
+        });
+        navigate("/");
+      }
     } catch (error) {
+      setError(error?.response?.data?.message);
+      await logout();
       setLoading(false);
-      Swal.fire({
-        title: "Error",
-        text: `${error.code}`,
-        icon: "error",
-      });
-      setError(error.code);
     }
   };
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };

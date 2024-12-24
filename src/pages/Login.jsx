@@ -4,14 +4,16 @@ import { FcGoogle } from "react-icons/fc";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useAuth } from "../context/AuthProvider";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../instance/AxiosSecure";
 
 const Login = () => {
-  const { login, loading, setLoading, signInWithGoogle } = useAuth();
+  const { login, loading, setLoading, signInWithGoogle, logout } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const axios = useAxiosSecure();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -38,18 +40,24 @@ const Login = () => {
   const handleGoogleLogin = async () => {
     try {
       setError("");
-      await signInWithGoogle();
-      navigate("/");
-      Swal.fire({
-        title: "Welcome back",
-        text: " Successfully logged in",
-        icon: "success",
+      const result = await signInWithGoogle();
+      const res = await axios.post("/users/google-login", {
+        email: result.user.email,
       });
+      if (res.data.success) {
+        navigate("/");
+        Swal.fire({
+          title: "Welcome back",
+          text: " Successfully logged in",
+          icon: "success",
+        });
+      }
     } catch (error) {
+      await logout();
       setLoading(false);
       Swal.fire({
         title: "Error",
-        text: `${error.code}`,
+        text: `${error.code || error?.response?.data?.message}`,
         icon: "error",
       });
       setError(error.code);
