@@ -14,7 +14,9 @@ const Modal = ({ setIsModalOpen, handleSubmit, assignment }) => {
     const data = {
       ...formData,
       title: assignment.title,
-      marks: null,
+      marks: assignment.marks,
+      feedback: "",
+      obtainedMarks: "",
       userName: currentUser.displayName,
       userEmail: currentUser.email,
       assignmentId: assignment._id,

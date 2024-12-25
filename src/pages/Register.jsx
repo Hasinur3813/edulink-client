@@ -95,7 +95,6 @@ const Register = () => {
     try {
       setError("");
       const result = await signInWithGoogle();
-      console.log(result.user.email);
       if (result?.user?.email) {
         await axiosInstance.post("/users/signup", {
           name: result.user.displayName,
@@ -107,7 +106,16 @@ const Register = () => {
         navigate("/");
       }
     } catch (error) {
+      console.log(error);
       setError(error?.response?.data?.message);
+      Swal.fire({
+        title: "Error",
+        text: `${
+          (error?.response && error.response?.data?.message) ||
+          " Seems you are already registered!"
+        }`,
+        icon: "error",
+      });
       await logout();
       setLoading(false);
     }

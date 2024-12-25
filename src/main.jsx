@@ -12,6 +12,7 @@ import CreateAssignment from "./pages/CreateAssignment";
 import Assignments from "./pages/Assignments";
 import AssignmentDetails from "./pages/AssignmentDetails";
 import PendignAssignment from "./pages/PendignAssignment";
+import MyAssignment from "./pages/MyAssignment";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: `/pending-assignments`,
         element: <PendignAssignment />,
+      },
+      {
+        path: "/my-assignment",
+        element: <MyAssignment />,
       },
     ],
   },

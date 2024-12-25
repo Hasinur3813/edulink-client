@@ -5,12 +5,12 @@ const GiveMarksModal = ({
   handleCloseModal,
   onSubmitMarks,
 }) => {
-  const [marks, setMarks] = useState("");
+  const [obtainedMarks, setObtainedMarks] = useState("");
   const [feedback, setFeedback] = useState("");
 
   const handleSubmitMarks = (e) => {
     e.preventDefault();
-    const { assignmentId, googleLink, title, userEmail, userName } =
+    const { assignmentId, googleLink, title, marks, userEmail, userName } =
       selectedAssignment;
 
     onSubmitMarks(selectedAssignment._id, {
@@ -21,6 +21,7 @@ const GiveMarksModal = ({
       userName,
       date: new Date().toISOString(),
       marks,
+      obtainedMarks,
       feedback,
       status: "Completed",
     });
@@ -31,9 +32,9 @@ const GiveMarksModal = ({
         <h2 className="text-2xl font-bold mb-4">Evaluate Assignment</h2>
 
         <p className="mb-2">
-          <strong>Quick note:</strong> {selectedAssignment.quickNote}
+          <strong>Quick Note:</strong> {selectedAssignment.quickNote}
         </p>
-        <p className="mb-4">
+        <p className="mb-2">
           <strong>Google Docs:</strong>{" "}
           <a
             href={selectedAssignment.googleLink}
@@ -44,12 +45,15 @@ const GiveMarksModal = ({
             Open Document
           </a>
         </p>
+        <p className="mb-4">
+          <strong>Assignment Marks:</strong> {selectedAssignment.marks}
+        </p>
         <form onSubmit={handleSubmitMarks}>
           <div className="mb-4">
             <label className="block font-bold mb-2">Marks</label>
             <input
-              value={marks}
-              onChange={(e) => setMarks(e.target.value)}
+              value={obtainedMarks}
+              onChange={(e) => setObtainedMarks(e.target.value)}
               type="number"
               name="marks"
               className="w-full border rounded p-2"

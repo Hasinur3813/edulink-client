@@ -15,7 +15,6 @@ const PendingAssignments = () => {
     const getAssignments = async () => {
       try {
         const res = await axios.get("/assignment/pending-assignment");
-
         setAssignments(res.data);
       } catch (error) {
         console.log(error);
@@ -37,9 +36,8 @@ const PendingAssignments = () => {
 
   // Function to handle submitting marks
   const handleSubmitMarks = async (id, assignment) => {
-    console.log(id);
     try {
-      const res = await axios.patch(
+      await axios.patch(
         `/assignment/update-pending-assignment/${id}`,
         assignment
       );
@@ -53,10 +51,12 @@ const PendingAssignments = () => {
         (assignment) => assignment._id !== id
       );
       setAssignments(remainingAssignment);
-
-      console.log(res.data);
-    } catch (error) {
-      console.log(error);
+    } catch {
+      Swal.fire({
+        title: "Error",
+        text: "Something went wrong! Try again",
+        icon: "error",
+      });
     }
 
     handleCloseModal();
@@ -83,14 +83,14 @@ const PendingAssignments = () => {
               >
                 <td className="p-4">{assignment.title}</td>
                 <td className="p-4 hidden sm:table-cell">
-                  {assignment.marks || "Not Marked"}
+                  {assignment.obtainedMarks || "Not Marked"}
                 </td>
                 <td className="p-4">{assignment.userName}</td>
                 <td className="p-4">
                   <button
-                    disabled={currentUser.email === assignment.userEmail}
+                    disabled={currentUser?.email === assignment.userEmail}
                     className={`${
-                      currentUser.email === assignment.userEmail &&
+                      currentUser?.email === assignment.userEmail &&
                       "!bg-opacity-50 cursor-not-allowed"
                     } bg-primaryColor text-white px-4 py-2 rounded hover:bg-primaryAccent`}
                     onClick={() => handleOpenModal(assignment)}
