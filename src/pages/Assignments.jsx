@@ -5,11 +5,14 @@ import useAxiosSecure from "../instance/AxiosSecure";
 
 import AssignmentCard from "../component/assignmentCard";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const AssignmentsPage = () => {
   const { currentUser } = useAuth();
   const [assignments, setAssignments] = useState([]);
   const [filterValue, setFilterValue] = useState("All");
+  const [search, setSearch] = useState("");
+  const navigate = useNavigate();
 
   const axios = useAxiosSecure();
 
@@ -47,7 +50,7 @@ const AssignmentsPage = () => {
         try {
           const res = await axios.post(`/assignment/delete/${assignment._id}`);
 
-          if (res.data.deletedCount) {
+          if (res.data?.deletedCount) {
             Swal.fire({
               title: "Deleted",
               text: "Assignment has been deleted!",
@@ -70,7 +73,17 @@ const AssignmentsPage = () => {
     });
   };
 
-  const handleUpdate = (assignment) => {};
+  const handleUpdate = (assignment) => {
+    if (currentUser.email !== assignment.email) {
+      return Swal.fire({
+        title: "Error",
+        text: "You did not create this assignment!",
+        icon: "error",
+      });
+    }
+
+    navigate(`/update-assignment/${assignment._id}`);
+  };
 
   const handleFilter = async (e) => {
     setFilterValue(e.target.value);
@@ -79,8 +92,28 @@ const AssignmentsPage = () => {
         `/assignment/filter/?difficulty=${e.target.value}`
       );
       setAssignments(res.data);
-    } catch (error) {
-      console.log(error);
+    } catch {
+      Swal.fire({
+        title: "Error",
+        text: "Something went wrong! Please try again.",
+        icon: "error",
+      });
+    }
+  };
+
+  const handleSearch = async (e) => {
+    const value = e.target.value;
+    setSearch(value);
+
+    try {
+      const res = await axios.get(`/assignment/search/?search=${value}`);
+      setAssignments(res.data);
+    } catch {
+      Swal.fire({
+        title: "Error",
+        text: "Something went wrong! Please try again.",
+        icon: "error",
+      });
     }
   };
 
@@ -104,7 +137,7 @@ const AssignmentsPage = () => {
               value={filterValue}
               onChange={(e) => handleFilter(e)}
             >
-              <option selected value="all">
+              <option defaultValue="all" value="all">
                 All
               </option>
               <option value="easy">Easy</option>
@@ -113,7 +146,13 @@ const AssignmentsPage = () => {
             </select>
 
             <label className="input input-bordered flex items-center gap-2">
-              <input type="text" className="grow" placeholder="Search" />
+              <input
+                type="text"
+                className="grow"
+                placeholder="Search"
+                onChange={(e) => handleSearch(e)}
+                value={search}
+              />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 16 16"

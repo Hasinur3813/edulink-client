@@ -13,6 +13,7 @@ import Assignments from "./pages/Assignments";
 import AssignmentDetails from "./pages/AssignmentDetails";
 import PendignAssignment from "./pages/PendignAssignment";
 import MyAssignment from "./pages/MyAssignment";
+import UpdateAssignment from "./pages/UpdateAssignment";
 
 const router = createBrowserRouter([
   {
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
       {
         path: "/my-assignment",
         element: <MyAssignment />,
+      },
+      {
+        path: "/update-assignment/:id",
+        element: <UpdateAssignment />,
       },
     ],
   },

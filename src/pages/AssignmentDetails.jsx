@@ -24,15 +24,17 @@ const AssignmentDetails = () => {
   }, [id, axios]);
 
   const handleSubmit = async (data) => {
-    console.log(data);
     try {
-      await axios.post("/assignment/submit-assignment", data);
-      Swal.fire({
-        title: "Success",
-        text: "Submitted successfully",
-        icon: "success",
-      });
-    } catch {
+      const res = await axios.post("/assignment/submit-assignment", data);
+      if (res.data.insertedId) {
+        Swal.fire({
+          title: "Success",
+          text: "Submitted successfully",
+          icon: "success",
+        });
+      }
+    } catch (e) {
+      console.log(e);
       Swal.fire({
         title: "Error",
         text: "An error has occured. Please try again.",
