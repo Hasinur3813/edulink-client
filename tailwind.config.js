@@ -16,7 +16,7 @@ export default {
         lato: ["Lato", "serif"],
       },
       backgroundImage: {
-        banner: "url('./src/assets/banner.jpg')",
+        banner: "url('./assets/banner.jpg')",
       },
     },
   },

@@ -48,9 +48,15 @@ const Login = () => {
     try {
       setError("");
       const result = await signInWithGoogle();
+
       const res = await axios.post("/users/google-login", {
+        name: result.user.displayName,
         email: result.user.email,
+        photoURL: result.user.photoURL,
+        platform: "Google Login",
+        password: "googleLogin",
       });
+
       if (res.data.success) {
         Swal.fire({
           title: "Welcome back",
@@ -59,12 +65,14 @@ const Login = () => {
         });
 
         state?.path ? navigate(state?.path) : navigate("/");
+      } else {
+        await logout();
       }
     } catch (error) {
       await logout();
       Swal.fire({
         title: "Error",
-        text: `${error.code || error?.response?.data?.message}`,
+        text: `${error?.response?.data?.message || error.code}`,
         icon: "error",
       });
       setError(error.code);
@@ -171,14 +179,6 @@ const Login = () => {
                 className="text-primaryColor hover:underline"
               >
                 Register here
-              </Link>
-            </p>
-            <p className="text-sm mt-2">
-              <Link
-                to="/forgot-password"
-                className="text-primaryColor hover:underline"
-              >
-                Forgot your password?
               </Link>
             </p>
           </div>

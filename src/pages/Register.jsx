@@ -15,10 +15,10 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   });
-  const { signup, loading, setLoading, updateUser, signInWithGoogle, logout } =
-    useAuth();
+  const { signup, updateUser, signInWithGoogle, logout } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -53,6 +53,7 @@ const Register = () => {
     }
     setError("");
     try {
+      setLoading(true);
       const res = await axiosInstance.post("/users/signup", {
         name: formData.name,
         email: formData.email,
@@ -70,12 +71,13 @@ const Register = () => {
             text: "Registration Successful",
             icon: "success",
           });
+          setLoading(false);
         } catch (error) {
           setError(error.code);
           setLoading(false);
           Swal.fire({
             title: "Error",
-            text: `${error.code}`,
+            text: "User is already registered!",
             icon: "error",
           });
         }
@@ -96,17 +98,26 @@ const Register = () => {
       setError("");
       const result = await signInWithGoogle();
       if (result?.user?.email) {
-        await axiosInstance.post("/users/signup", {
+        const res = await axiosInstance.post("/users/signup", {
           name: result.user.displayName,
           email: result.user.email,
           photoURL: result.user.photoURL,
           platform: "Google Login",
           password: "googleLogin",
         });
-        navigate("/");
+        if (res.data.success) {
+          Swal.fire({
+            title: "Welcome back",
+            text: " Successfully logged in",
+            icon: "success",
+          });
+
+          navigate("/");
+        } else {
+          await logout();
+        }
       }
     } catch (error) {
-      console.log(error);
       setError(error?.response?.data?.message);
       Swal.fire({
         title: "Error",

@@ -122,7 +122,7 @@ const AssignmentDetails = () => {
           {/* Meta Information */}
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0 mb-6">
             <span className="bg-primaryColor/10 text-primaryColor font-medium px-4 py-2 rounded-lg shadow-sm">
-              Due: {assignment.dueDate}
+              Due: {new Date(assignment.dueDate).toLocaleDateString("en-GB")}
             </span>
             <span
               className={`text-sm font-bold uppercase px-4 py-2 rounded-lg shadow-sm ${getDifficultyColor(

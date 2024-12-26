@@ -33,18 +33,16 @@ const AuthProvider = ({ children }) => {
             "https://edulink-omega.vercel.app/users/generate-token",
             {
               email: user.email,
+              name: user.displayName,
             },
             { withCredentials: true }
           )
           .then(() => {
             setLoading(false);
           })
-          .catch(() => {
-            Swal.fire({
-              title: "Error",
-              text: "BAD_REQUEST. Retry logging in or Refresh the page.",
-              icon: "error",
-            });
+          .catch((err) => {
+            setLoading(false);
+            console.log(err?.message);
           });
       } else {
         axios
@@ -60,10 +58,11 @@ const AuthProvider = ({ children }) => {
           })
           .catch(() => {
             Swal.fire({
-              title: "Error",
-              text: "BAD_REQUEST. Retry logging in or Refresh the page.",
+              title: "BAD_REQUEST",
+              text: "Retry logging in or Refresh the page.",
               icon: "error",
             });
+            setLoading(false);
           });
       }
     });
