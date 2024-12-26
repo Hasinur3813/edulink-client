@@ -15,6 +15,7 @@ import PendignAssignment from "./pages/PendignAssignment";
 import MyAssignment from "./pages/MyAssignment";
 import UpdateAssignment from "./pages/UpdateAssignment";
 import PrivateRoute from "./routes/PrivateRoute";
+import PublicRoute from "./routes/PublicRoute";
 
 const router = createBrowserRouter([
   {
@@ -28,11 +29,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/login",
-        element: <Login />,
+        element: (
+          <PublicRoute>
+            <Login />
+          </PublicRoute>
+        ),
       },
       {
         path: "/register",
-        element: <Register />,
+        element: (
+          <PublicRoute>
+            <Register />
+          </PublicRoute>
+        ),
       },
       {
         path: "/create-assignment",

@@ -13,7 +13,6 @@ import {
 } from "firebase/auth";
 import axios from "axios";
 import Swal from "sweetalert2";
-// import useAxiosSecure from "../instance/AxiosSecure";
 
 const AuthContext = createContext();
 
@@ -39,6 +38,13 @@ const AuthProvider = ({ children }) => {
           )
           .then(() => {
             setLoading(false);
+          })
+          .catch(() => {
+            Swal.fire({
+              title: "Error",
+              text: "BAD_REQUEST. Retry logging in or Refresh the page.",
+              icon: "error",
+            });
           });
       } else {
         axios
@@ -51,6 +57,13 @@ const AuthProvider = ({ children }) => {
           )
           .then(() => {
             setLoading(false);
+          })
+          .catch(() => {
+            Swal.fire({
+              title: "Error",
+              text: "BAD_REQUEST. Retry logging in or Refresh the page.",
+              icon: "error",
+            });
           });
       }
     });

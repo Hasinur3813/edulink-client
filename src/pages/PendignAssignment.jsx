@@ -80,7 +80,7 @@ const PendingAssignments = () => {
       <div className=" min-h-screen px-3 py-20 text-darkBg">
         <h1 className="text-3xl font-bold mb-4">Pending Assignments</h1>
         <div className="overflow-x-auto">
-          <table className="w-full border-collapse bg-white shadow-lg rounded-lg">
+          <table className="w-full border-collapse bg-white dark:bg-gray-900 shadow-lg rounded-lg">
             <thead className="bg-primaryAccent text-white">
               <tr>
                 <th className="p-4">Assignment Title</th>
@@ -93,7 +93,7 @@ const PendingAssignments = () => {
               {assignments.map((assignment) => (
                 <tr
                   key={assignment._id}
-                  className="hover:bg-primaryAccent/20 text-center"
+                  className="hover:bg-primaryAccent/20 dark:text-white text-center"
                 >
                   <td className="p-4">{assignment.title}</td>
                   <td className="p-4 hidden sm:table-cell">

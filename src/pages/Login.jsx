@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useAuth } from "../context/AuthProvider";
@@ -13,8 +13,11 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const location = useLocation();
   const navigate = useNavigate();
   const axios = useAxiosSecure();
+
+  const state = location?.state;
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -28,8 +31,9 @@ const Login = () => {
         icon: "success",
       });
       setLoading(false);
-      navigate("/");
+      state?.path ? navigate(state?.path) : navigate("/");
     } catch (error) {
+      console.log(error);
       setError(error.code);
       Swal.fire({
         title: "Error",
@@ -48,12 +52,13 @@ const Login = () => {
         email: result.user.email,
       });
       if (res.data.success) {
-        navigate("/");
         Swal.fire({
           title: "Welcome back",
           text: " Successfully logged in",
           icon: "success",
         });
+
+        state?.path ? navigate(state?.path) : navigate("/");
       }
     } catch (error) {
       await logout();

@@ -1,4 +1,5 @@
 import { Fade } from "react-awesome-reveal";
+import { Link } from "react-router-dom";
 
 const Banner = () => {
   return (
@@ -20,12 +21,12 @@ const Banner = () => {
             </p>
 
             <div className="mt-10">
-              <a
-                href="#get-started"
+              <Link
+                to="/assignments"
                 className="inline-block px-8 py-4 text-lg font-semibold text-primaryAccent bg-white rounded-full shadow-xl hover:bg-primaryAccent hover:text-white transition duration-300 transform hover:scale-105"
               >
                 Get Started
-              </a>
+              </Link>
             </div>
           </div>
         </Fade>

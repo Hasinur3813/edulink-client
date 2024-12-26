@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthProvider";
 import useAxiosSecure from "../instance/AxiosSecure";
@@ -39,7 +40,7 @@ const MyAssignment = () => {
       <div className=" pt-20 min-h-screen p-6 text-darkBg">
         <h1 className="text-3xl font-bold mb-4">My Submitted Assignments</h1>
         <div className="overflow-x-auto">
-          <table className="w-full border-collapse bg-white shadow-lg rounded-lg">
+          <table className="w-full border-collapse bg-white dark:bg-gray-900 shadow-lg rounded-lg">
             <thead className="bg-primaryAccent text-white">
               <tr>
                 <th className="p-4">Assignment Title</th>
@@ -51,7 +52,10 @@ const MyAssignment = () => {
             </thead>
             <tbody>
               {assignments.map((assignment) => (
-                <tr key={assignment._id} className="hover:bg-primaryAccent/20">
+                <tr
+                  key={assignment._id}
+                  className="hover:bg-primaryAccent/20 dark:text-white"
+                >
                   <td className="p-4">{assignment.title}</td>
                   <td className="p-4">
                     <span

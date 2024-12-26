@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import notFound from "../assets/empty.svg";
 
 import { useAuth } from "../context/AuthProvider";
 import useAxiosSecure from "../instance/AxiosSecure";
@@ -39,12 +38,16 @@ const AssignmentsPage = () => {
   }, [currentUser, axios]);
 
   const handleDelete = async (assignment) => {
-    if (currentUser.email !== assignment.email) {
-      return Swal.fire({
-        title: "Error",
-        text: "You did not create this assignment!",
-        icon: "error",
-      });
+    if (currentUser) {
+      if (currentUser.email !== assignment.email) {
+        return Swal.fire({
+          title: "Error",
+          text: "You did not create this assignment!",
+          icon: "error",
+        });
+      }
+    } else {
+      return navigate("/login");
     }
 
     Swal.fire({
@@ -84,12 +87,14 @@ const AssignmentsPage = () => {
   };
 
   const handleUpdate = (assignment) => {
-    if (currentUser.email !== assignment.email) {
-      return Swal.fire({
-        title: "Error",
-        text: "You did not create this assignment!",
-        icon: "error",
-      });
+    if (currentUser) {
+      if (currentUser.email !== assignment.email) {
+        return Swal.fire({
+          title: "Error",
+          text: "You did not create this assignment!",
+          icon: "error",
+        });
+      }
     }
 
     navigate(`/update-assignment/${assignment._id}`);
@@ -146,11 +151,7 @@ const AssignmentsPage = () => {
           </p>
         </div>
 
-        <div
-          className={`${
-            assignments.length === 0 && "hidden"
-          } my-16 shadow-sm py-2`}
-        >
+        <div className={` my-16 shadow-sm py-2`}>
           <div className="flex gap-1 sm:gap-0  justify-between items-center">
             <select
               className="select select-bordered w-full max-w-xs"

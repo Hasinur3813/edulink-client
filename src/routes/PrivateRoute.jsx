@@ -4,7 +4,7 @@ import Loader from "../component/Loader";
 
 const PrivateRoute = ({ children }) => {
   const { currentUser, loading } = useAuth();
-  const { path } = useLocation();
+  const location = useLocation();
 
   if (loading) {
     return (
@@ -13,10 +13,11 @@ const PrivateRoute = ({ children }) => {
       </div>
     );
   }
-  if (currentUser) {
-    return children;
+  if (!currentUser) {
+    return <Navigate to="/login" state={{ path: location.pathname }} />;
   }
-  return <Navigate Navigate to="/login" state={path}></Navigate>;
+
+  return children;
 };
 
 export default PrivateRoute;
