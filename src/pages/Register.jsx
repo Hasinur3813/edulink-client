@@ -15,10 +15,11 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   });
-  const { signup, updateUser, signInWithGoogle, logout } = useAuth();
+  const { signup, updateUser, signInWithGoogle, logout, setLoading } =
+    useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setPageLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -53,7 +54,7 @@ const Register = () => {
     }
     setError("");
     try {
-      setLoading(true);
+      setPageLoading(true);
       const res = await axiosInstance.post("/users/signup", {
         name: formData.name,
         email: formData.email,
@@ -71,10 +72,10 @@ const Register = () => {
             text: "Registration Successful",
             icon: "success",
           });
-          setLoading(false);
+          setPageLoading(false);
         } catch (error) {
           setError(error.code);
-          setLoading(false);
+          setPageLoading(false);
           Swal.fire({
             title: "Error",
             text: "User is already registered!",
@@ -84,7 +85,7 @@ const Register = () => {
       }
     } catch (error) {
       setError(error?.response?.data?.message);
-      setLoading(false);
+      setPageLoading(false);
       Swal.fire({
         title: "Error",
         text: `${error?.response?.data?.message}`,
@@ -128,7 +129,6 @@ const Register = () => {
         icon: "error",
       });
       await logout();
-      setLoading(false);
     }
   };
 
