@@ -31,7 +31,7 @@ const AssignmentCard = ({ onUpdate, onDelete, assignment }) => {
         </figure>
 
         <div className="card-body p-4">
-          <h2 className="card-title text-lg font-semibold text-gray-800 whitespace-nowrap overflow-hidden text-ellipsis max-w-full dark:text-white">
+          <h2 className=" text-lg font-semibold text-gray-800 whitespace-nowrap overflow-hidden text-ellipsis max-w-full dark:text-white">
             {assignment.title}
           </h2>
           <p className="text-gray-600 mb-3  whitespace-nowrap overflow-hidden text-ellipsis max-w-full dark:text-gray-400">
