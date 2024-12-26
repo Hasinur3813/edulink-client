@@ -15,8 +15,14 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   });
-  const { signup, updateUser, signInWithGoogle, logout, setLoading } =
-    useAuth();
+  const {
+    signup,
+    updateUser,
+    signInWithGoogle,
+    logout,
+    setCurrentUser,
+    setLoading,
+  } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setPageLoading] = useState(false);
@@ -65,6 +71,12 @@ const Register = () => {
         try {
           await signup(formData.email, formData.password);
           await updateUser(formData.name, formData.photoURL, formData.email);
+          setCurrentUser((user) => ({
+            ...user,
+            displayName: formData.name,
+            photoURL: formData.photoURL,
+            email: formData.email,
+          }));
           setLoading(false);
           navigate("/");
           Swal.fire({
