@@ -4,10 +4,13 @@ import { useParams } from "react-router-dom";
 import useAxiosSecure from "../instance/AxiosSecure";
 import Modal from "../component/Modal";
 import Swal from "sweetalert2";
+import Loader2 from "../component/Loader2";
+import { MdErrorOutline } from "react-icons/md";
 
 const AssignmentDetails = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [assignment, setAssignment] = useState(null);
+  const [loading, setLoading] = useState(true);
   const { id } = useParams();
   const axios = useAxiosSecure();
 
@@ -16,7 +19,9 @@ const AssignmentDetails = () => {
       try {
         const res = await axios.post(`/assignment/${id}`);
         setAssignment(res.data);
+        setLoading(false);
       } catch (error) {
+        setLoading(false);
         console.log(error);
       }
     };
@@ -56,10 +61,22 @@ const AssignmentDetails = () => {
     }
   };
 
-  if (!assignment) {
+  if (loading) {
+    return <Loader2 />;
+  }
+
+  if (!assignment && !loading) {
     return (
-      <div className="min-h-screen flex justify-center items-center text-gray-500">
-        No assignment found.
+      <div className="min-h-screen flex flex-col justify-center items-center bg-gray-50 text-gray-700">
+        <div className="flex flex-col items-center">
+          <MdErrorOutline className="text-red-500 text-6xl mb-4" />
+          <p className="text-red-500 text-xl font-semibold mb-2">
+            Something went wrong. Please try again.
+          </p>
+          <p className="text-gray-500 text-sm">
+            If the issue persists, contact support for assistance.
+          </p>
+        </div>
       </div>
     );
   }

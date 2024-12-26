@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import notFound from "../assets/empty.svg";
 
 import { useAuth } from "../context/AuthProvider";
 import useAxiosSecure from "../instance/AxiosSecure";
@@ -6,12 +7,15 @@ import useAxiosSecure from "../instance/AxiosSecure";
 import AssignmentCard from "../component/assignmentCard";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import Loader2 from "../component/Loader2";
+import { MdAssignmentLate } from "react-icons/md";
 
 const AssignmentsPage = () => {
   const { currentUser } = useAuth();
   const [assignments, setAssignments] = useState([]);
   const [filterValue, setFilterValue] = useState("All");
   const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   const axios = useAxiosSecure();
@@ -21,8 +25,14 @@ const AssignmentsPage = () => {
       try {
         const res = await axios.get("/assignment");
         setAssignments(res.data);
-      } catch (error) {
-        console.log(error);
+        setLoading(false);
+      } catch {
+        setLoading(false);
+        Swal.fire({
+          title: "Error",
+          text: "Please Log In First",
+          icon: "error",
+        });
       }
     };
     fetchAssignments();
@@ -88,11 +98,14 @@ const AssignmentsPage = () => {
   const handleFilter = async (e) => {
     setFilterValue(e.target.value);
     try {
+      setLoading(true);
       const res = await axios.get(
         `/assignment/filter/?difficulty=${e.target.value}`
       );
       setAssignments(res.data);
+      setLoading(false);
     } catch {
+      setLoading(false);
       Swal.fire({
         title: "Error",
         text: "Something went wrong! Please try again.",
@@ -106,9 +119,12 @@ const AssignmentsPage = () => {
     setSearch(value);
 
     try {
+      setLoading(true);
       const res = await axios.get(`/assignment/search/?search=${value}`);
       setAssignments(res.data);
+      setLoading(false);
     } catch {
+      setLoading(false);
       Swal.fire({
         title: "Error",
         text: "Something went wrong! Please try again.",
@@ -130,8 +146,12 @@ const AssignmentsPage = () => {
           </p>
         </div>
 
-        <div className="my-16 shadow-sm py-2">
-          <div className="flex justify-between items-center">
+        <div
+          className={`${
+            assignments.length === 0 && "hidden"
+          } my-16 shadow-sm py-2`}
+        >
+          <div className="flex gap-1 sm:gap-0  justify-between items-center">
             <select
               className="select select-bordered w-full max-w-xs"
               value={filterValue}
@@ -169,16 +189,36 @@ const AssignmentsPage = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8">
-          {assignments.map((assignment) => (
-            <AssignmentCard
-              key={assignment._id}
-              onDelete={handleDelete}
-              onUpdate={handleUpdate}
-              assignment={assignment}
-            />
-          ))}
-        </div>
+        {/* show not found message if not assignment is found */}
+
+        {assignments.length === 0 && !loading && (
+          <div className="flex flex-col items-center justify-center py-10 ">
+            <div className="text-primary text-6xl mb-4">
+              <MdAssignmentLate />
+            </div>
+            <h3 className="text-lg font-semibold text-gray-700">
+              No assignments are available now.
+            </h3>
+            <p className="text-sm text-gray-500 mt-2">
+              Please check back later for updates.
+            </p>
+          </div>
+        )}
+
+        {loading ? (
+          <Loader2 />
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8">
+            {assignments.map((assignment) => (
+              <AssignmentCard
+                key={assignment._id}
+                onDelete={handleDelete}
+                onUpdate={handleUpdate}
+                assignment={assignment}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
