@@ -10,7 +10,7 @@ const initialFormData = {
   title: "",
   description: "",
   marks: "",
-  difficulty: "Easy",
+  difficulty: "easy",
   dueDate: "",
 };
 
