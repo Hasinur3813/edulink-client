@@ -15,6 +15,7 @@ const AssignmentDetails = () => {
   const axios = useAxiosSecure();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const getAssignment = async () => {
       try {
         const res = await axios.post(`/assignment/${id}`);
