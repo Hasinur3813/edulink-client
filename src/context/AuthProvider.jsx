@@ -31,7 +31,7 @@ const AuthProvider = ({ children }) => {
       if (user?.email) {
         axios
           .post(
-            "http://localhost:3000/users/generate-token",
+            "https://edulink-omega.vercel.app/users/generate-token",
             {
               email: user.email,
             },
@@ -39,33 +39,17 @@ const AuthProvider = ({ children }) => {
           )
           .then(() => {
             setLoading(false);
-          })
-          .catch(() => {
-            Swal.fire({
-              title: "Error",
-              text: "Internal server error",
-              icon: "error",
-            });
-            setLoading(false);
           });
       } else {
         axios
           .post(
-            "http://localhost:3000/users/logout",
+            "https://edulink-omega.vercel.app/users/logout",
             {},
             {
               withCredentials: true,
             }
           )
           .then(() => {
-            setLoading(false);
-          })
-          .catch(() => {
-            Swal.fire({
-              title: "Error",
-              text: "Internal server error",
-              icon: "error",
-            });
             setLoading(false);
           });
       }

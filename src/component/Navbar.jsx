@@ -50,11 +50,13 @@ const Navbar = () => {
           </div>
           <ul
             tabIndex={0}
-            className="navMenu menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-52 p-2 shadow"
+            className="navMenu menu menu-sm space-y-1 dropdown-content bg-base-100 rounded-box z-10 mt-3 w-52 p-2 shadow"
           >
             <li>
-              <NavLink>Assignments</NavLink>
-              <NavLink>Pending Assignment</NavLink>
+              <Link to="/assignments">Assignments</Link>
+            </li>
+            <li>
+              <Link to="/pending-assignments">Pending Assignments</Link>
             </li>
           </ul>
         </div>
@@ -70,7 +72,7 @@ const Navbar = () => {
           <li className="text-base text-primaryColor font-semibold">
             <NavLink to="/">Home</NavLink>
           </li>
-          <li className="text-base text-primaryColor font-semibold">
+          <li className=" text-base text-primaryColor font-semibold">
             <NavLink to="/assignments">Assignments</NavLink>
           </li>
           <li className="text-base text-primaryColor font-semibold">

@@ -4,7 +4,7 @@ import { useAuth } from "../context/AuthProvider";
 import { useEffect } from "react";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "https://edulink-omega.vercel.app",
   timeout: 3000,
   withCredentials: true,
 });
