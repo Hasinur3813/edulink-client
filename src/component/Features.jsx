@@ -1,6 +1,6 @@
 import { MdAssignment, MdSend, MdFeedback } from "react-icons/md";
 import { FiClock } from "react-icons/fi";
-import { Fade, Bounce } from "react-awesome-reveal";
+import { Fade } from "react-awesome-reveal";
 
 const FeatureSection = () => {
   return (
@@ -14,7 +14,7 @@ const FeatureSection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Feature 1: Create & Manage Assignments */}
-          <Bounce>
+          <Fade>
             <div className="bg-white outline-primaryColor outline-1 outline dark:bg-slate-900 p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
               <div className="mb-6">
                 <MdAssignment className="text-5xl text-primaryColor mx-auto" />
@@ -27,10 +27,10 @@ const FeatureSection = () => {
                 difficulty levels, marks, and due dates.
               </p>
             </div>
-          </Bounce>
+          </Fade>
 
           {/* Feature 2: Track Pending Assignments */}
-          <Bounce>
+          <Fade>
             <div className="outline-primaryColor outline-1 outline dark:bg-slate-900 bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
               <div className="mb-6">
                 <FiClock className="text-5xl text-primaryColor mx-auto" />
@@ -43,10 +43,10 @@ const FeatureSection = () => {
                 others, ensuring timely feedback.
               </p>
             </div>
-          </Bounce>
+          </Fade>
 
           {/* Feature 3: Assignment Submission */}
-          <Bounce>
+          <Fade>
             <div className="outline-primaryColor outline-1 outline dark:bg-slate-900 bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
               <div className="mb-6">
                 <MdSend className="text-5xl text-primaryColor mx-auto" />
@@ -59,10 +59,10 @@ const FeatureSection = () => {
                 additional notes. Track the status of each submission.
               </p>
             </div>
-          </Bounce>
+          </Fade>
 
           {/* Feature 4: Assignment Grading & Feedback */}
-          <Bounce>
+          <Fade>
             <div className="outline-primaryColor outline-1 outline dark:bg-slate-900 bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
               <div className="mb-6">
                 <MdFeedback className="text-5xl text-primaryColor mx-auto" />
@@ -75,7 +75,7 @@ const FeatureSection = () => {
                 based on their submissions.
               </p>
             </div>
-          </Bounce>
+          </Fade>
         </div>
       </div>
     </section>

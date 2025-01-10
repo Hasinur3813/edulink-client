@@ -1,8 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Bounce } from "react-awesome-reveal";
+import { Fade } from "react-awesome-reveal";
 const FAQSection = () => {
   return (
-    <Bounce>
+    <Fade>
       <section className=" py-12">
         <div className="max-w-5xl mx-auto text-center px-3">
           <h2 className="text-3xl md:text-4xl font-bold text-primaryColor mb-8">
@@ -91,7 +91,7 @@ const FAQSection = () => {
           </div>
         </div>
       </section>
-    </Bounce>
+    </Fade>
   );
 };
 

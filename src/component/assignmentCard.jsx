@@ -26,7 +26,7 @@ const AssignmentCard = ({ onUpdate, onDelete, assignment }) => {
           <img
             src={assignment.thumbnail}
             alt={assignment.title}
-            className="h-40 w-full text-white object-cover rounded-t-lg"
+            className="h-52 w-full text-white object-cover rounded-t-lg"
           />
         </figure>
 
@@ -61,7 +61,7 @@ const AssignmentCard = ({ onUpdate, onDelete, assignment }) => {
           </div>
 
           {/* Action Buttons */}
-          <div className="space-y-3">
+          <div className="space-y-3 mt-8">
             <Link
               to={`/view-assignment/${assignment._id}`}
               className="btn bg-primaryColor hover:bg-primaryAccent text-white w-full flex items-center justify-center gap-2"
