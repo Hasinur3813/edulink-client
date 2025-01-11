@@ -62,7 +62,7 @@ const Navbar = () => {
         </div>
         <Link
           to="/"
-          className=" text-xl lg:text-3xl font-extrabold dark:text-white"
+          className=" text-2xl md:text-3xl font-extrabold dark:text-white"
         >
           <span className="text-primaryColor">Edu</span>Link
         </Link>

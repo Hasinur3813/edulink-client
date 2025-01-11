@@ -105,7 +105,7 @@ const AssignmentDetails = () => {
             alt={assignment.title}
             className="w-full h-[400px] object-cover"
           />
-          <div className="absolute bottom-4 left-4 bg-gray-900/70 text-white px-4 py-1 rounded-lg">
+          <div className="absolute bottom-4 left-4 bg-primaryColor font-medium text-white px-4 py-1 rounded-lg">
             Marks: {assignment.marks}
           </div>
         </div>
@@ -121,7 +121,7 @@ const AssignmentDetails = () => {
           </p>
 
           {/* Meta Information */}
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0 mb-6">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0">
             <span className="bg-primaryColor/10 text-primaryColor font-medium px-4 py-2 rounded-lg shadow-sm">
               Due: {new Date(assignment.dueDate).toLocaleDateString("en-GB")}
             </span>
@@ -132,6 +132,15 @@ const AssignmentDetails = () => {
             >
               {assignment.difficulty}
             </span>
+          </div>
+
+          <div className="my-4">
+            <p
+              className="text-primaryColor inline-block bg-primaryColor/10 py-3 px-4 rounded-lg font-semibold
+            "
+            >
+              Creator: {assignment.name}
+            </p>
           </div>
 
           {/* Take Assignment Button */}

@@ -34,11 +34,13 @@ const AssignmentCard = ({ assignment }) => {
           <h2 className=" text-lg font-semibold text-gray-800 whitespace-nowrap overflow-hidden text-ellipsis max-w-full dark:text-white">
             {assignment.title}
           </h2>
+
           <p className="text-gray-600 mb-3  whitespace-nowrap overflow-hidden text-ellipsis max-w-full dark:text-gray-400">
             {assignment.description}
           </p>
+
           <div className="">
-            {/* Marks and Due Date */}
+            {/* Marks and Difficulty */}
             <div className="flex justify-between items-center">
               <span className="inline-block  bg-blue-100 text-blue-800 font-medium px-3 py-1 rounded-md mr-2">
                 Marks: {assignment.marks}
@@ -52,16 +54,20 @@ const AssignmentCard = ({ assignment }) => {
               </span>
             </div>
 
-            {/* Difficulty Level */}
-            <div className="mt-4">
+            {/* due date */}
+            <div className="mt-4 w-full flex items-center justify-between">
               <span className="inline-block bg-gray-100 text-gray-800 font-medium px-3 py-1 rounded-md">
                 Due: {new Date(assignment.dueDate).toLocaleDateString("en-GB")}
+              </span>
+
+              <span className="text-end bg-primaryColor/20 inline-block text-primaryColor font-medium px-3 py-1 rounded-md ml-2">
+                {assignment.name}
               </span>
             </div>
           </div>
 
           {/* Action Buttons */}
-          <div className="space-y-3 mt-8">
+          <div className="space-y-3 mt-8 mb-4">
             <Link
               to={`/view-assignment/${assignment._id}`}
               className="btn bg-primaryColor hover:bg-primaryAccent text-white w-full flex items-center justify-center gap-2"
