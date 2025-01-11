@@ -5,12 +5,12 @@ const FAQSection = () => {
   return (
     <Fade>
       <section className=" py-12">
+        <h2 className="text-3xl text-center md:text-4xl font-bold text-primaryColor mb-8">
+          Frequently Asked Questions
+        </h2>
         <div className="container mx-auto flex-col lg:flex-row gap-5 text-center px-3 flex justify-between items-center">
           {/* faqs */}
           <div className="flex-1">
-            <h2 className="text-3xl md:text-4xl font-bold text-primaryColor mb-8">
-              Frequently Asked Questions
-            </h2>
             <div className="space-y-4">
               {/* FAQ 1 */}
               <div className="collapse collapse-plus bg-white dark:bg-slate-900">

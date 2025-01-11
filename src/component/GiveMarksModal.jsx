@@ -27,7 +27,7 @@ const GiveMarksModal = ({
     });
   };
   return (
-    <div className="fixed top-0 left-0 w-full h-full bg-darkBg/50 flex justify-center items-center">
+    <div className="absolute inset-0 z-50  bg-darkBg/50 flex items-center justify-center">
       <div className="bg-white rounded-lg shadow-lg w-3/4 max-w-md p-6">
         <h2 className="text-2xl font-bold mb-4">Evaluate Assignment</h2>
 
