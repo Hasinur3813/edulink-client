@@ -30,7 +30,7 @@ const AuthProvider = ({ children }) => {
       if (user?.email) {
         axios
           .post(
-            "https://edulink-omega.vercel.app/users/generate-token",
+            "http://localhost:3000/users/generate-token",
             {
               email: user.email,
               name: user.displayName,
@@ -47,7 +47,7 @@ const AuthProvider = ({ children }) => {
       } else {
         axios
           .post(
-            "https://edulink-omega.vercel.app/users/logout",
+            "http://localhost:3000/users/logout",
             {},
             {
               withCredentials: true,

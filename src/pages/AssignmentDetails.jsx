@@ -103,7 +103,7 @@ const AssignmentDetails = () => {
           <img
             src={assignment.thumbnail}
             alt={assignment.title}
-            className="w-full h-64 object-cover"
+            className="w-full h-[400px] object-cover"
           />
           <div className="absolute bottom-4 left-4 bg-gray-900/70 text-white px-4 py-1 rounded-lg">
             Marks: {assignment.marks}
@@ -111,7 +111,7 @@ const AssignmentDetails = () => {
         </div>
 
         {/* Assignment Details */}
-        <div className="p-6">
+        <div className="px-6 py-12">
           {/* Title and Description */}
           <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-primaryColor mb-4">
             {assignment.title}
@@ -137,7 +137,7 @@ const AssignmentDetails = () => {
           {/* Take Assignment Button */}
           <button
             onClick={() => setIsModalOpen(true)}
-            className="btn bg-primaryColor text-white hover:bg-primaryAccent w-full flex items-center justify-center gap-2 py-3 text-lg font-semibold shadow-md hover:shadow-lg hover:scale-105 transition duration-200"
+            className="btn bg-primaryColor text-white hover:bg-primaryAccent w-full flex items-center justify-center gap-2 py-3 text-lg font-semibold shadow-md hover:shadow-lg  transition duration-200"
           >
             <FaCheckCircle className="text-xl" />
             Take Assignment

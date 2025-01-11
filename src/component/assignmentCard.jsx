@@ -1,8 +1,8 @@
-import { FaTrash, FaEdit, FaEye } from "react-icons/fa";
+import { FaEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { Fade } from "react-awesome-reveal";
 
-const AssignmentCard = ({ onUpdate, onDelete, assignment }) => {
+const AssignmentCard = ({ assignment }) => {
   const getDifficultyColor = (level) => {
     switch (level.toLowerCase()) {
       case "easy":
@@ -68,20 +68,6 @@ const AssignmentCard = ({ onUpdate, onDelete, assignment }) => {
             >
               <FaEye /> View Assignment
             </Link>
-            <div className="flex gap-2 justify-between">
-              <button
-                onClick={() => onUpdate(assignment)}
-                className="btn btn-outline btn-accent flex-1 flex items-center justify-center gap-2"
-              >
-                <FaEdit /> Update
-              </button>
-              <button
-                onClick={() => onDelete(assignment)}
-                className="btn btn-outline btn-error flex-1 flex items-center justify-center gap-2"
-              >
-                <FaTrash /> Delete
-              </button>
-            </div>
           </div>
         </div>
       </div>

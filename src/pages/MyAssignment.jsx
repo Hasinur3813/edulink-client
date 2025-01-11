@@ -5,11 +5,15 @@ import useAxiosSecure from "../instance/AxiosSecure";
 import { Fade } from "react-awesome-reveal";
 import Loader2 from "../component/Loader2";
 import Swal from "sweetalert2";
+import { FaTrash, FaEdit } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+
 const MyAssignment = () => {
   const { currentUser } = useAuth();
   const [assignments, setAssignments] = useState([]);
   const [loading, setLoading] = useState(true);
   const axios = useAxiosSecure();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchAssignments = async () => {
@@ -32,22 +36,62 @@ const MyAssignment = () => {
     fetchAssignments();
   }, [currentUser]);
 
+  const handleDelete = async (assignment) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const res = await axios.post(`/assignment/delete/${assignment._id}`);
+
+          if (res.data?.deletedCount) {
+            Swal.fire({
+              title: "Deleted",
+              text: "Assignment has been deleted!",
+              icon: "success",
+            });
+
+            const remainingAssignment = assignments.filter(
+              (a) => a._id !== assignment._id
+            );
+            setAssignments(remainingAssignment);
+          }
+        } catch {
+          Swal.fire({
+            title: "Error",
+            text: "Seems the file has already been deleted!",
+            icon: "error",
+          });
+        }
+      }
+    });
+  };
+
+  const handleUpdate = (assignment) => {
+    navigate(`/update-assignment/${assignment._id}`);
+  };
+
   if (loading) {
     return <Loader2 />;
   }
   return (
     <Fade>
-      <div className=" pt-20 min-h-screen p-6 text-darkBg">
-        <h1 className="text-3xl font-bold mb-4">My Submitted Assignments</h1>
+      <div className=" pt-20  p-6 text-darkBg">
+        <h1 className="text-3xl font-bold mb-4">My Assignments</h1>
         <div className="overflow-x-auto">
           <table className="w-full border-collapse bg-white dark:bg-gray-900 shadow-lg rounded-lg">
             <thead className="bg-primaryAccent text-white">
               <tr>
                 <th className="p-4">Assignment Title</th>
-                <th className="p-4">Status</th>
+                <th className="p-4">Difficulty</th>
                 <th className="p-4">Assignment Marks</th>
-                <th className="p-4">Obtained Marks</th>
-                <th className="p-4">Feedback</th>
+                <th className="p-4">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -59,21 +103,34 @@ const MyAssignment = () => {
                   <td className="p-4">{assignment.title}</td>
                   <td className="p-4">
                     <span
-                      className={`px-3 py-1 rounded-full text-white ${
-                        assignment.status === "Pending"
-                          ? "bg-yellow-500"
-                          : "bg-green-500"
+                      className={`capitalize px-3 py-1 rounded-full text-white ${
+                        (assignment.difficulty === "easy" && "bg-green-500") ||
+                        (assignment.difficulty === "medium" &&
+                          "bg-yellow-500") ||
+                        (assignment.difficulty === "hard" && "bg-red-500")
                       }`}
                     >
-                      {assignment.status}
+                      {assignment.difficulty}
                     </span>
                   </td>
                   <td className="p-4">{assignment.marks || "N/A"}</td>
                   <td className="p-4">
-                    {assignment?.obtainedMarks || "Not Marked"}
-                  </td>
-                  <td className="p-4">
-                    {assignment?.feedback || "No Feedback Yet"}
+                    {/* Action Buttons */}
+
+                    <div className="flex gap-2 justify-between">
+                      <button
+                        onClick={() => handleUpdate(assignment)}
+                        className="btn text-white bg-primaryColor hover:bg-primaryAccent flex-1 flex items-center justify-center gap-2"
+                      >
+                        <FaEdit /> Update
+                      </button>
+                      <button
+                        onClick={() => handleDelete(assignment)}
+                        className="btn btn-outline btn-error flex-1 flex items-center justify-center gap-2"
+                      >
+                        <FaTrash /> Delete
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}

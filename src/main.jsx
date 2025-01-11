@@ -12,10 +12,12 @@ import CreateAssignment from "./pages/CreateAssignment";
 import Assignments from "./pages/Assignments";
 import AssignmentDetails from "./pages/AssignmentDetails";
 import PendignAssignment from "./pages/PendignAssignment";
-import MyAssignment from "./pages/MyAssignment";
+
 import UpdateAssignment from "./pages/UpdateAssignment";
 import PrivateRoute from "./routes/PrivateRoute";
 import PublicRoute from "./routes/PublicRoute";
+import MyAttemptedAssignment from "./pages/MyAttemptedAssignment";
+import MyAssignment from "./pages/MyAssignment";
 
 const router = createBrowserRouter([
   {
@@ -68,6 +70,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <PendignAssignment />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/my-attempted-assignment",
+        element: (
+          <PrivateRoute>
+            <MyAttemptedAssignment />
           </PrivateRoute>
         ),
       },

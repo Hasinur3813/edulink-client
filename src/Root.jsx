@@ -9,7 +9,7 @@ const Root = () => {
       <Navbar />
 
       {/* Main Content */}
-      <div className="flex-grow">
+      <div className="min-h-screen">
         <Outlet />
       </div>
 

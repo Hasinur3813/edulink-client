@@ -108,7 +108,12 @@ const Navbar = () => {
                   <Link to="/create-assignment">Create Assignment</Link>
                 </li>
                 <li>
-                  <Link to="my-assignment">My assignment</Link>
+                  <Link to="my-attempted-assignment">
+                    My Attempted Assignment
+                  </Link>
+                </li>
+                <li>
+                  <Link to="my-assignment">My Assignment</Link>
                 </li>
                 <li className="sm:hidden">
                   <button
