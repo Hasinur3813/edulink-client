@@ -1,4 +1,5 @@
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -19,15 +20,25 @@ const Footer = () => {
           <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
           <ul className="space-y-2">
             <li>
-              <a href="/" className="hover:underline">
+              <Link to={"/"} className="hover:underline">
                 Home
-              </a>
+              </Link>
             </li>
 
             <li>
-              <a href="/assignments" className="hover:underline">
+              <Link to={"/assignments"} className="hover:underline">
                 Assignments
-              </a>
+              </Link>
+            </li>
+            <li>
+              <Link to={"/pending-assignments"} className="hover:underline">
+                Pending Assignments
+              </Link>
+            </li>
+            <li>
+              <Link to={"/create-assignment"} className="hover:underline">
+                Create Assignment
+              </Link>
             </li>
           </ul>
         </div>
