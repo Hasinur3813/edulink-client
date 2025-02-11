@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 const HomepageAssignments = () => {
   const [assignments, setAssignments] = useState([]);
   const axios = useAxiosSecure();
-  //   localhost:5000/assignment/homepage-assignments
+
   useEffect(() => {
     const fetchAssignments = async () => {
       try {
@@ -18,7 +18,7 @@ const HomepageAssignments = () => {
       } catch {
         Swal.fire({
           title: "Error",
-          text: "Please Log In First",
+          text: "Try refreshing the page",
           icon: "error",
         });
       }

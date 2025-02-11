@@ -23,19 +23,10 @@ const Footer = () => {
                 Home
               </a>
             </li>
-            <li>
-              <a href="/about" className="hover:underline">
-                About Us
-              </a>
-            </li>
+
             <li>
               <a href="/assignments" className="hover:underline">
                 Assignments
-              </a>
-            </li>
-            <li>
-              <a href="/contact" className="hover:underline">
-                Contact Us
               </a>
             </li>
           </ul>
