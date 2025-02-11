@@ -28,7 +28,7 @@ const Modal = ({ setIsModalOpen, handleSubmit, assignment }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center px-3">
       <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
         <h2 className="text-2xl font-bold text-primaryColor mb-4">
           Submit Assignment
