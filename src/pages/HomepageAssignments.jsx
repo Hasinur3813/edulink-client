@@ -1,26 +1,49 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import AssignmentCard from "../component/assignmentCard";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../instance/AxiosSecure";
+import { Link } from "react-router-dom";
 
 const HomepageAssignments = () => {
   const [assignments, setAssignments] = useState([]);
+  const axios = useAxiosSecure();
+  //   localhost:5000/assignment/homepage-assignments
+  useEffect(() => {
+    const fetchAssignments = async () => {
+      try {
+        const res = await axios.get("/assignment/homepage-assignments");
+        setAssignments(res.data);
+        console.log(res.data);
+      } catch {
+        Swal.fire({
+          title: "Error",
+          text: "Please Log In First",
+          icon: "error",
+        });
+      }
+    };
+    fetchAssignments();
+  }, [axios]);
 
   return (
-    <section className="bg-backGround py-16 text-center">
+    <section className="bg-backGround dark:bg-darkBg py-16 text-center">
       <div className="container mx-auto px-3">
         {" "}
-        <h2 className="text-3xl font-bold text-[#1d62b4] mb-6">
+        <h2 className="text-3xl font-bold text-primaryColor mb-10">
           Latest Assignments
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {assignments.map((assignment) => (
             <AssignmentCard key={assignment.id} assignment={assignment} />
           ))}
         </div>
         <div className="mt-8">
-          <button className="bg-[#4A90E2] hover:bg-[#1d62b4] text-white px-6 py-3 rounded-lg text-lg font-semibold transition-all">
-            View More
-          </button>
+          <Link to={"/assignments"}>
+            <button className="bg-primaryColor hover:bg-primaryAccent text-white px-6 py-3 rounded-lg text-lg font-semibold transition-all">
+              View More
+            </button>
+          </Link>
         </div>
       </div>
     </section>
