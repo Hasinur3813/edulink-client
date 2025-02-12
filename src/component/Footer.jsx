@@ -86,7 +86,7 @@ const Footer = () => {
       {/* Bottom Bar */}
       <div className="border-t border-base-300 mt-8 py-4">
         <p className="text-center text-sm">
-          © 2024 EduLink. All rights reserved.
+          &copy; {new Date().getFullYear()} EduLink. All rights reserved.
         </p>
       </div>
     </footer>

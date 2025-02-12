@@ -83,7 +83,7 @@ const AssignmentDetails = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto min-h-screen p-6">
+    <div className="max-w-4xl mx-auto min-h-screen p-3">
       {/* Introductory Content */}
       <header className="mt-12 mb-10 text-center">
         <h2 className="text-xl sm:text-3xl font-extrabold text-primaryColor mb-4">
@@ -99,11 +99,11 @@ const AssignmentDetails = () => {
       {/* Assignment Card */}
       <div className="bg-white dark:bg-gray-900 shadow-lg rounded-lg overflow-hidden border border-gray-200">
         {/* Assignment Image */}
-        <div className="relative">
+        <div className="relative h-[400px] overflow-hidden">
           <img
             src={assignment.thumbnail}
             alt={assignment.title}
-            className="w-full h-[400px] object-cover"
+            className="w-full h-full md:object-cover"
           />
           <div className="absolute bottom-4 left-4 bg-primaryColor font-medium text-white px-4 py-1 rounded-lg">
             Marks: {assignment.marks}
@@ -123,7 +123,7 @@ const AssignmentDetails = () => {
           {/* Meta Information */}
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0">
             <span className="bg-primaryColor/10 text-primaryColor font-medium px-4 py-2 rounded-lg shadow-sm">
-              Due: {new Date(assignment.dueDate).toLocaleDateString("en-GB")}
+              {new Date(assignment.dueDate).toLocaleDateString("en-GB")}
             </span>
             <span
               className={`text-sm font-bold uppercase px-4 py-2 rounded-lg shadow-sm ${getDifficultyColor(
@@ -139,7 +139,7 @@ const AssignmentDetails = () => {
               className="text-primaryColor inline-block bg-primaryColor/10 py-3 px-4 rounded-lg font-semibold
             "
             >
-              Creator: {assignment.name}
+              {assignment.name}
             </p>
           </div>
 
