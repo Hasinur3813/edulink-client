@@ -2,7 +2,7 @@ import { useState } from "react";
 import useAxiosSecure from "../instance/AxiosSecure";
 import { useAuth } from "../context/AuthProvider";
 import Swal from "sweetalert2";
-import Loader from "../component/Loader";
+
 import { Fade } from "react-awesome-reveal";
 
 const initialFormData = {
@@ -179,10 +179,10 @@ const CreateAssignment = () => {
             <div className="mt-6 text-center">
               <button
                 type="submit"
-                className="w-full bg-[#4A90E2] hover:bg-[#1d62b4] text-white py-2 px-4 rounded-md focus:outline-none focus:ring-4 focus:ring-[#1d62b4] dark:ring-offset-[#2E2E3A] transition"
+                className="w-full bg-[#4A90E2] hover:bg-[#1d62b4] text-white py-2 px-4 rounded-md focus:outline-none focus:ring-4 focus:ring-[#1d62b4] dark:ring-offset-[#2E2E3A] transition text-lg font-semibold"
                 disabled={loading}
               >
-                {loading ? <Loader /> : " Create Assignment"}
+                {loading ? "Creating..." : " Create Assignment"}
               </button>
             </div>
           </form>
