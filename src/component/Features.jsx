@@ -12,10 +12,10 @@ const FeatureSection = () => {
           </h2>
         </Fade>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  gap-12">
           {/* Feature 1: Create & Manage Assignments */}
           <Fade>
-            <div className="bg-white outline-primaryColor outline-1 outline dark:bg-slate-900 p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+            <div className="bg-white h-full outline-primaryColor outline-1 outline dark:bg-slate-900 p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
               <div className="mb-6">
                 <MdAssignment className="text-5xl text-primaryColor mx-auto" />
               </div>
@@ -31,7 +31,7 @@ const FeatureSection = () => {
 
           {/* Feature 2: Track Pending Assignments */}
           <Fade>
-            <div className="outline-primaryColor outline-1 outline dark:bg-slate-900 bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+            <div className="outline-primaryColor h-full outline-1 outline dark:bg-slate-900 bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
               <div className="mb-6">
                 <FiClock className="text-5xl text-primaryColor mx-auto" />
               </div>
@@ -47,7 +47,7 @@ const FeatureSection = () => {
 
           {/* Feature 3: Assignment Submission */}
           <Fade>
-            <div className="outline-primaryColor outline-1 outline dark:bg-slate-900 bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+            <div className="outline-primaryColor h-full outline-1 outline dark:bg-slate-900 bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
               <div className="mb-6">
                 <MdSend className="text-5xl text-primaryColor mx-auto" />
               </div>
@@ -63,7 +63,7 @@ const FeatureSection = () => {
 
           {/* Feature 4: Assignment Grading & Feedback */}
           <Fade>
-            <div className="outline-primaryColor outline-1 outline dark:bg-slate-900 bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+            <div className="outline-primaryColor h-full outline-1 outline dark:bg-slate-900 bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
               <div className="mb-6">
                 <MdFeedback className="text-5xl text-primaryColor mx-auto" />
               </div>

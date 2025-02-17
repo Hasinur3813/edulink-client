@@ -5,6 +5,7 @@ import useAxiosSecure from "../instance/AxiosSecure";
 import { Fade } from "react-awesome-reveal";
 import Loader2 from "../component/Loader2";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const MyAttemptedAssignment = () => {
   const { currentUser } = useAuth();
@@ -80,6 +81,21 @@ const MyAttemptedAssignment = () => {
               ))}
             </tbody>
           </table>
+
+          {assignments.length === 0 && (
+            <div className="text-center">
+              {" "}
+              <p className="text-center font-semibold text-red-500 mt-5 mb-2">
+                No assignment submitted!
+              </p>
+              <Link
+                to={"/assignments"}
+                className="underline text-primaryColor font-semibold"
+              >
+                Submit an assignment
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </Fade>

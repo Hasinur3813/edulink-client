@@ -6,7 +6,7 @@ import { Fade } from "react-awesome-reveal";
 import Loader2 from "../component/Loader2";
 import Swal from "sweetalert2";
 import { FaTrash, FaEdit } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const MyAssignment = () => {
   const { currentUser } = useAuth();
@@ -136,6 +136,21 @@ const MyAssignment = () => {
               ))}
             </tbody>
           </table>
+
+          {assignments.length === 0 && (
+            <div className="text-center">
+              {" "}
+              <p className="text-center font-semibold text-red-500 mt-5 mb-2">
+                No assignment created yet!
+              </p>
+              <Link
+                to={"/create-assignment"}
+                className="underline text-primaryColor font-semibold"
+              >
+                Create a new one
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </Fade>

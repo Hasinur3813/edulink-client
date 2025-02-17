@@ -19,7 +19,7 @@ const AssignmentCard = ({ assignment }) => {
   return (
     <Fade duration={1000} delay={200}>
       <div
-        className="card card-compact bg-base-100 dark:bg-gray-900 shadow-xl border border-gray-200 dark:border-primaryColor"
+        className="card card-compact bg-base-100 dark:bg-slate-800 shadow-xl border border-gray-200 dark:border-primaryColor"
         key={assignment._id}
       >
         <figure>
